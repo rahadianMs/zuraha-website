@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "astro dev --host",
     "start": "astro dev",
-    "build": "node ./node_modules/astro/astro.js build",
+    "build": "node ./node_modules/astro/bin/astro.mjs build",
     "preview": "astro preview",
     "astro": "astro"
   },

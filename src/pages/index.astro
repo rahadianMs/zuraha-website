@@ -181,37 +181,48 @@ const chapters = [
   var audioEl = null;
   var animFrameId = null;
 
-  var durationInSeconds = 145; // Faster pace, but still very readable for normal humans
+  var isMobile = window.innerWidth <= 768;
+  var durationInSeconds = isMobile ? 85 : 145; // Faster pace on mobile (85s) compared to desktop (145s)
   var startTimestamp = null;
+
+  var maxScroll = 0;
+  function updateMaxScroll() {
+    maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+  }
 
   function autoScrollLoop(timestamp) {
     if (!isAutoScrolling || !audioEl) return;
     
-    // Initialize the starting timestamp on the first frame
-    if (!startTimestamp) startTimestamp = timestamp;
+    if (!startTimestamp) {
+       startTimestamp = timestamp;
+       updateMaxScroll(); // Initial calculation
+    }
     
-    // Calculate elapsed time in seconds
     var elapsedTime = (timestamp - startTimestamp) / 1000;
-    
-    // Calculate progress (0.0 to 1.0)
     var progress = Math.min(elapsedTime / durationInSeconds, 1.0);
     
-    var maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    // Periodically update maxScroll every ~2 seconds to handle lazy-loaded images without thrashing every frame
+    if (Math.floor(elapsedTime) % 2 === 0 && elapsedTime > 0.1) {
+      updateMaxScroll();
+    }
+
     var targetY = progress * maxScroll;
     
-    // Apply exact scroll position - perfectly stable, no jitter from audio's currentTime discretisation
+    // Use scrollTo(x, y) to ensure no conflict with CSS smooth scroll
     window.scrollTo(0, targetY);
 
     if (progress < 1.0) {
       animFrameId = requestAnimationFrame(autoScrollLoop);
     } else {
-      // Reached bottom, automatically unlock scrolling
       stopAutoScroll();
       window.removeEventListener('wheel', preventScroll);
       window.removeEventListener('touchmove', preventScroll);
       window.removeEventListener('keydown', preventKeyScroll);
     }
   }
+
+  // Also update on resize
+  window.addEventListener('resize', updateMaxScroll);
 
   function preventScroll(e) {
     if (isAutoScrolling) e.preventDefault();

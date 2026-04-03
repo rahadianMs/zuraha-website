@@ -181,7 +181,7 @@ const chapters = [
   var audioEl = null;
   var animFrameId = null;
 
-  var durationInSeconds = 230; // Finishes before the song ends
+  var durationInSeconds = 145; // Faster pace, but still very readable for normal humans
   var startTimestamp = null;
 
   function autoScrollLoop(timestamp) {
@@ -327,6 +327,24 @@ const chapters = [
     var audio = document.getElementById('bgMusic');
 
     if (!btn || !splash) { setTimeout(setupSplash, 100); return; }
+
+    // Unlock button once all assets (images/videos) are fully loaded
+    function unlockButton() {
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      btn.style.cursor = 'pointer';
+      
+      var btnText = document.getElementById('btnStartText');
+      var btnHint = document.getElementById('btnStartHint');
+      if (btnText) btnText.innerHTML = 'Buka Kenangan ✨';
+      if (btnHint) btnHint.innerHTML = '(Pasang headset &amp; nikmati)';
+    }
+
+    if (document.readyState === 'complete') {
+      unlockButton();
+    } else {
+      window.addEventListener('load', unlockButton);
+    }
 
     btn.addEventListener('click', function() {
       // Always scroll to top on start to prevent bugs after refresh

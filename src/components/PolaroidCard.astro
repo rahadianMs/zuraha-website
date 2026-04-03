@@ -28,7 +28,7 @@ const isVideo = imageSrc.endsWith('.mp4') || imageSrc.endsWith('.webm');
     {isVideo ? (
       <video src={imageSrc} autoplay loop muted playsinline></video>
     ) : (
-      <img src={imageSrc} alt={alt} loading="lazy" width="600" height="600" />
+      <img src={imageSrc} alt={alt} loading="eager" width="600" height="600" />
     )}
     {caption && <p class="polaroid__caption">{caption}</p>}
   </div>

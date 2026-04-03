@@ -181,11 +181,12 @@ import Squiggle from './Squiggle.astro';
 
     <button
       id="btnStart"
-      class="btn-start pulse-slow"
-      style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem; justify-content: center; width: 100%; max-width: 300px; margin: 0 auto; padding: 1.25rem 2rem;"
+      class="btn-start pulse-slow is-loading"
+      disabled
+      style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem; justify-content: center; width: 100%; max-width: 300px; margin: 0 auto; padding: 1.25rem 2rem; opacity: 0.7; cursor: not-allowed;"
     >
-      <span class="btn-start-inner">Buka Kenangan ✨</span>
-      <span class="btn-hint">(Pasang headset &amp; nikmati)</span>
+      <span class="btn-start-inner" id="btnStartText">Menyiapkan Kenangan...</span>
+      <span class="btn-hint" id="btnStartHint">(Mohon tunggu sebentar ya)</span>
     </button>
   </div>
 </div>

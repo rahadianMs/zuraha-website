@@ -1,0 +1,91 @@
+/* src/styles/typography.css */
+
+/* Fonts */
+/* Playfair Display, DM Serif Display, Caveat, Inter, Patrick Hand, Comic Neue are loaded via Google Fonts in BaseLayout */
+
+.font-playfair {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-dm-serif {
+  font-family: 'DM Serif Display', serif;
+}
+
+.font-caveat {
+  font-family: 'Caveat', cursive;
+}
+
+.font-inter {
+  font-family: 'Inter', sans-serif;
+}
+
+.font-handwriting {
+  font-family: 'Patrick Hand', 'Comic Sans MS', 'Comic Sans', cursive;
+}
+
+.font-comic {
+  font-family: 'Comic Neue', 'Comic Sans MS', 'Comic Sans', cursive;
+}
+
+/* Base text properties */
+body {
+  font-family: 'Patrick Hand', 'Comic Sans MS', cursive;
+  font-size: var(--fs-body);
+  line-height: 1.75;
+}
+
+p {
+  font-family: 'Patrick Hand', 'Comic Sans MS', cursive;
+  font-size: var(--fs-body);
+  line-height: 1.75;
+  margin-bottom: 1.6rem;
+}
+
+/* Headings Base */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Patrick Hand', 'Comic Sans MS', cursive;
+  line-height: 1.3;
+}
+
+/* Utility classes for colors */
+.color-coral { color: var(--color-coral); }
+.color-coral-light { color: var(--color-coral-light); }
+.color-yellow { color: var(--color-yellow); }
+.color-white { color: var(--color-white); }
+.color-navy { color: var(--color-navy-text); }
+
+/* Opacity utilities */
+.opacity-90 { opacity: 0.9; }
+.opacity-80 { opacity: 0.8; }
+.opacity-65 { opacity: 0.65; }
+
+/* Decorative Text */
+.label-small {
+  font-family: 'Patrick Hand', 'Comic Sans MS', cursive;
+  font-size: var(--fs-label);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.title-display {
+  font-family: 'Patrick Hand', 'Comic Sans MS', cursive;
+  font-size: var(--fs-display);
+  font-weight: 400; /* Handwriting fonts often don't have extremely bold weights */
+}
+
+.title-heading {
+  font-family: 'Patrick Hand', 'Comic Sans MS', cursive;
+  font-size: var(--fs-heading);
+  font-weight: 400;
+}
+
+.title-subhead {
+  font-family: 'Patrick Hand', 'Comic Sans MS', cursive;
+  font-size: var(--fs-subhead);
+}
+
+.text-script {
+  font-family: 'Caveat', cursive; /* Keeping Caveat here for signature-style script if needed */
+  font-size: var(--fs-subhead);
+}

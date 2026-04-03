@@ -1,0 +1,56 @@
+---
+// src/components/ChapterSection.astro
+import PolaroidCard from './PolaroidCard.astro';
+import PolaroidGrid from './PolaroidGrid.astro';
+import Squiggle from './Squiggle.astro';
+
+interface Photo {
+  src: string;
+  caption?: string;
+  rotation?: 'left' | 'right' | 'neutral';
+  landscape?: boolean;
+}
+
+interface Props {
+  id: string;
+  title: string;
+  bgTheme: 'navy' | 'cream';
+  textHtml: string;
+  photos: Photo[];
+  gridType: '2-col' | '3-col' | 'mixed' | 'stacked' | 'cahaya';
+  reverseLayout?: boolean;
+}
+
+const { id, title, bgTheme, textHtml, photos, gridType, reverseLayout = false } = Astro.props;
+
+const titleColorClass = bgTheme === 'navy' ? 'color-yellow' : 'color-navy';
+const textColorClass = bgTheme === 'navy' ? 'color-white' : 'color-navy';
+const squiggleColor = bgTheme === 'navy' ? 'var(--color-coral)' : 'var(--color-yellow)';
+---
+
+<section id={id} class="section js-section" data-bg={bgTheme}>
+  <div class={`section-content chapter-container ${reverseLayout ? 'chapter-container--reverse' : ''}`}>
+    <div class="chapter-text js-fade-up">
+      <h2 class={`title-heading ${titleColorClass}`}>{title}</h2>
+      
+      <div style="margin: 20px 0;">
+        <Squiggle color={squiggleColor} />
+      </div>
+      
+      <div class={textColorClass} set:html={textHtml} />
+    </div>
+    
+    <div class="chapter-media js-fade-up">
+      <PolaroidGrid columns={gridType}>
+        {photos.map((photo) => (
+          <PolaroidCard
+            imageSrc={photo.src}
+            caption={photo.caption}
+            rotation={photo.rotation}
+            landscape={photo.landscape}
+          />
+        ))}
+      </PolaroidGrid>
+    </div>
+  </div>
+</section>

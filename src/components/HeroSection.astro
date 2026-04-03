@@ -1,0 +1,165 @@
+---
+// src/components/HeroSection.astro
+import Sparkle from './Sparkle.astro';
+import Squiggle from './Squiggle.astro';
+---
+
+<style>
+  @keyframes float-gentle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .float-anim { animation: float-gentle 4s ease-in-out infinite; }
+
+  @keyframes float-medium {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-15px) rotate(-2deg); }
+  }
+  
+  @keyframes float-reverse {
+    0%, 100% { transform: translateY(0) rotate(5deg); }
+    50% { transform: translateY(-12px) rotate(8deg); }
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.05); }
+  }
+
+  .desktop-ornament {
+    display: none;
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .hero-container {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 0 1rem;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1.5rem 2rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  @media (min-width: 768px) {
+    .desktop-ornament {
+      display: block;
+    }
+    
+    .ornament-1 {
+      top: 15%;
+      left: 10%;
+      opacity: 0.7;
+      animation: float-medium 6s ease-in-out infinite;
+    }
+    
+    .ornament-2 {
+      bottom: 25%;
+      right: 12%;
+      opacity: 0.8;
+      animation: float-reverse 5s ease-in-out infinite;
+    }
+
+    .ornament-3 {
+      top: 25%;
+      right: 15%;
+      animation: pulse-glow 7s ease-in-out infinite;
+    }
+    
+    .ornament-circle {
+      width: 250px; 
+      height: 250px; 
+      border-radius: 50%; 
+      background: radial-gradient(circle, rgba(240, 133, 106, 0.15) 0%, rgba(30, 61, 92, 0) 70%);
+      filter: blur(10px);
+    }
+
+    .ornament-4 {
+      bottom: 20%;
+      left: 15%;
+      opacity: 0.6;
+      animation: float-medium 5.5s ease-in-out infinite;
+      animation-delay: 1s;
+    }
+    
+    .glass-card {
+       padding: 2rem 3rem;
+    }
+  }
+</style>
+
+<section id="hero" class="section js-section" data-bg="navy" style="min-height: 100svh; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; padding: clamp(3rem, 8vw, 6rem) 1rem;">
+  
+  <!-- Decorative Background Elements -->
+  <div class="desktop-ornament ornament-1">
+    <Sparkle color="var(--color-yellow)" size={70} />
+  </div>
+  <div class="desktop-ornament ornament-2">
+    <div style="transform: scale(1.5);">
+      <Squiggle color="var(--color-coral)" />
+    </div>
+  </div>
+  <div class="desktop-ornament ornament-3">
+     <div class="ornament-circle"></div>
+  </div>
+  <div class="desktop-ornament ornament-4">
+    <Sparkle color="var(--color-cream)" size={45} />
+  </div>
+
+  <div class="hero-container">
+    <div class="hero-content chapter-text js-fade-up text-center">
+      <div class="hero-decorative float-anim" style="margin-bottom: 4vh;">
+        <Sparkle color="var(--color-yellow)" size={52} />
+      </div>
+
+      <h1 class="title-display color-coral-light" style="margin-bottom: 1.5rem; font-size: clamp(3rem, 9vw, 7rem); line-height: 1.05; text-align: center; width: 100%; text-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+        The New Chapter
+      </h1>
+      
+      <h2 class="title-display color-white" style="font-size: clamp(1.4rem, 4vw, 3rem); letter-spacing: 0.05em; line-height: 1.4; max-width: 800px; margin: 0 auto; text-align: center;">
+        Sebuah Cerita Perjalanan Kita
+      </h2>
+      
+      <div style="margin-top: 6vh; max-width: 600px; margin-left: auto; margin-right: auto; position: relative;">
+        <div style="position: absolute; left: -40px; top: -15px; opacity: 0.7; transform: rotate(-15deg) scale(0.8);" class="float-anim">
+          <Squiggle color="var(--color-coral)"/>
+        </div>
+        <p class="title-subhead color-yellow opacity-90 typing-cursor" id="hero-subtitle" style="font-size: clamp(1.1rem, 2.5vw, 1.5rem); position: relative; z-index: 2;">
+          Mari mulai membuka lembaran pertama...
+        </p>
+      </div>
+      
+      <div style="margin-top: 10vh; position: relative;" class="hero-cta js-fade-up float-anim">
+        <div class="glass-card" style="font-size: clamp(0.95rem, 2vw, 1.2rem); color: var(--color-white); letter-spacing: 0.05em; max-width: 500px; margin: 0 auto; line-height: 1.6;">
+          <strong style="color: var(--color-yellow); font-weight: 600;">Relax, sit back, and enjoy the moment.</strong><br/>
+          <span style="opacity: 0.85; font-size: 0.95em; display: inline-block; margin-top: 0.8rem;">
+            Kamu nggak perlu scroll, biarkan halaman ini yang berjalan membawamu.
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,35 @@
+---
+// src/components/PolaroidCard.astro
+interface Props {
+  imageSrc: string;
+  caption?: string;
+  rotation?: 'left' | 'right' | 'neutral';
+  className?: string;
+  alt?: string;
+  landscape?: boolean;
+}
+
+const {
+  imageSrc,
+  caption,
+  rotation = 'neutral',
+  className = "",
+  alt = "Photo",
+  landscape = false
+} = Astro.props;
+
+const rotationClass = `polaroid--rotate-${rotation}`;
+const landscapeClass = landscape ? 'polaroid--landscape' : '';
+const isVideo = imageSrc.endsWith('.mp4') || imageSrc.endsWith('.webm');
+---
+
+<div class={`polaroid-wrapper ${landscape ? 'polaroid-wrapper--landscape' : ''} ${className}`}>
+  <div class={`polaroid-card ${rotationClass} ${landscapeClass}`}>
+    {isVideo ? (
+      <video src={imageSrc} autoplay loop muted playsinline></video>
+    ) : (
+      <img src={imageSrc} alt={alt} loading="lazy" width="600" height="600" />
+    )}
+    {caption && <p class="polaroid__caption">{caption}</p>}
+  </div>
+</div>

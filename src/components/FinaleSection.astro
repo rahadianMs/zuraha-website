@@ -1,0 +1,32 @@
+---
+// src/components/FinaleSection.astro
+import PolaroidCard from './PolaroidCard.astro';
+interface Props {
+  id: string;
+}
+const { id } = Astro.props;
+---
+
+<section id={id} class="section js-section finale-section" data-bg="navy">
+  <div class="section-content finale-content">
+    <div class="js-fade-up text-center">
+      <h2 class="title-display color-yellow">Terima Kasih</h2>
+      <p class="title-subhead color-white" style="margin-top: 1rem;">Untuk semua warna yang kamu bawa</p>
+    </div>
+    
+    <div class="js-fade-up" style="margin-top: 2rem;">
+      <PolaroidCard 
+        imageSrc="/photos/kopitera/photo3.webp" 
+        caption="Happy Birthday, Zura! 🤍"
+        rotation="neutral"
+        className="floating-element"
+      />
+    </div>
+    
+    <div class="js-fade-up" style="margin-top: 4rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+      <p class="color-white" style="font-size: 1.2rem; line-height: 1.8;">
+        "Semoga di usia yang baru ini, setiap langkahmu diiringi kebahagiaan. Tetaplah menjadi Zura yang kuat, cantik, dan menginspirasi."
+      </p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,376 @@
+---
+// src/pages/index.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SplashScreen from '../components/SplashScreen.astro';
+import MusicPlayer from '../components/MusicPlayer.astro';
+import HeroSection from '../components/HeroSection.astro';
+import ChapterSection from '../components/ChapterSection.astro';
+import FinaleSection from '../components/FinaleSection.astro';
+import ClosingSection from '../components/ClosingSection.astro';
+
+const chapters = [
+  {
+    id: "chapter-0",
+    title: "Throwback: The New Chapter",
+    bgTheme: "navy" as const,
+    textHtml: `
+      <p>Do you remember this 'Chapter ?' dari beberapa bulan yang lalu? Kamu bilang kamu paling benci mulai duluan, but you bravely laid it all out in those 5 pages. It was the cutest, bravest move you ever pulled.</p>
+      <p>Waktu itu kamu menggambar sebuah pintu. 'A Way Out?' tanyamu. Kamu memberiku dua pilihan: leave, or stay and fight for something real. You said, 'Either be something more or nothing at all'.</p>
+      <p>Thank you for keeping that door open. Jika kamu masih merasa ragu/ambigu, biar saya pertegas saya menjawab 'yes', dan berjalan melewati pintu itu bersamamu adalah langkah terbaik yang aku pilih. Walaupun kita masih di awal perjalanan ini, aku sangat bersyukur kita berani melangkah secara bersama.</p>
+      <p>Happy New Chapter to us. P.S. Di hari yang spesial ini, aku ingin merecap perjalanan kita sejauh ini. </p>
+    `,
+    gridType: "2-col" as const,
+    reverseLayout: true,
+    photos: [
+      { src: "/photos/cover.jpeg", rotation: "right" as const, caption: "Chapter ?" },
+      { src: "/photos/last_page.svg", rotation: "left" as const, caption: "A way out?" }
+    ]
+  },
+  {
+    id: "chapter-1",
+    title: "Pertemuan di Braga",
+    bgTheme: "navy" as const,
+    textHtml: `
+      <p>Tanggal 6 Januari 2026, Braga menjadi saksi pertemuan pertama kita setelah sekian lama menjalin asa dari kejauhan.</p>
+      <p>Hari itu kita kembali berbincang, tertawa, dan bertukar gantungan kunci. Gantungan merah darimu, yang fotonya ada di sini, kini selalu terikat manis di tasku. Ia bukan sekadar hiasan, melainkan pengingat hangat bahwa ada seseorang yang selalu percaya padaku, selalu mendukungku, dan menyayangiku dengan tulus.</p>
+    `,
+    gridType: "3-col" as const,
+    reverseLayout: false,
+    photos: [
+      { src: "/photos/braga/photo1.webp", rotation: "left" as const, caption: "Braga, awal cerita" },
+      { src: "/photos/braga/1000000490.jpg", rotation: "right" as const, caption: "Gantungan Merah" },
+      { src: "/photos/braga/braga_video.mp4", rotation: "left" as const, caption: "Kenangan di Braga" },
+      { src: "/photos/braga/braga_1.png", rotation: "right" as const, caption: "kamu manis bet gila di foto ini..." },
+      { src: "/photos/braga/1000000494.jpg", rotation: "left" as const, caption: "cekrek siapa nih...." },
+      { src: "/photos/braga/1000000496.jpg", rotation: "neutral" as const, caption: "asik nambah koleksi...." }
+    ]
+  },
+  {
+    id: "chapter-2",
+    title: "Senyum Manismu",
+    bgTheme: "navy" as const,
+    textHtml: `
+      <p>Meskipun kita hanya bertemu sesekali, setiap momen bersamamu selalu terasa bermakna — ngobrol, bercanda, menikmati hal-hal sederhana bersama.</p>
+      <p>Dan di hari-hari panjang setelah seharian beraktivitas, senyummu selalu jadi penyemangat yang paling aku tunggu. Ada sesuatu tentang caramu tersenyum yang membuat lelah itu menghilang begitu saja.</p>
+    `,
+    gridType: "stacked" as const,
+    reverseLayout: true,
+    photos: [
+      { src: "/photos/discord/dc_1.jpg", rotation: "left" as const, caption: "Senyum yang selalu bikin semangat 😊" },
+      { src: "/photos/discord/dc_2.jpg", rotation: "right" as const },
+      { src: "/photos/misc/momen_kita_new.jpg", rotation: "neutral" as const, caption: "Momen kita 🤍" }
+    ]
+  },
+  {
+    id: "chapter-3",
+    title: "Momen Kita",
+    bgTheme: "cream" as const,
+    textHtml: `
+      <p>Terima kasih — bahkan di sela-sela kesibukan dan waktu kerja, kamu selalu menyempatkan untuk hadir dan menghabiskan waktu bersama.</p>
+      <p>Mungkin waktunya terasa singkat, tapi setiap menitnya sangat bermakna dan berkesan. Bukan tentang seberapa besar tempatnya, tapi tentang siapa yang ada di sana bersamaku.</p>
+    `,
+    gridType: "2-col" as const,
+    reverseLayout: false,
+    photos: [
+      { src: "/photos/bxc/bxc_1.jpg", rotation: "left" as const, caption: "Waktu yang berharga 🤍" },
+      { src: "/photos/bxc/bxc_2.jpg", rotation: "right" as const },
+      { src: "/photos/bxc/bxc_3.jpg", rotation: "neutral" as const, caption: "Bareng kamu selalu seru" },
+      { src: "/photos/bxc/bxc_4.jpg", rotation: "left" as const }
+    ]
+  },
+  {
+    id: "chapter-4",
+    title: "Cahaya",
+    bgTheme: "navy" as const,
+    textHtml: `
+      <p>Kamu tidak pernah menyadari betapa bersinarnya dirimu, kan?</p>
+      <p>Bahkan saat kamu merasa sedang tidak baik-baik saja, kamu tetap menjadi cahaya yang terang bagi orang-orang di sekitarmu.</p>
+    `,
+    gridType: "cahaya" as const,
+    reverseLayout: true,
+    photos: [
+      { src: "/photos/paskal-01/photo2.webp", rotation: "left" as const },
+      { src: "/photos/paskal-01/photo3.webp", rotation: "neutral" as const, caption: "Glowing!" },
+      { src: "/photos/paskal-01/photo4.jpg", rotation: "right" as const }
+    ]
+  },
+  {
+    id: "chapter-5",
+    title: "Canda & Tawa",
+    bgTheme: "cream" as const,
+    textHtml: `
+      <p>Ini adalah bagian favoritku.</p>
+      <p>Sisi lain darimu yang konyol, aneh, dan penuh kejutan. Aku harap kamu tidak pernah kehilangan percikan ini.</p>
+    `,
+    gridType: "mixed" as const,
+    reverseLayout: false,
+    photos: [
+      { src: "/photos/sugu/photo1.webp", rotation: "left" as const, caption: "Konyol 😂" },
+      { src: "/photos/fore/photo1.webp", rotation: "right" as const },
+      { src: "/photos/sugu/photo2.jpg", rotation: "neutral" as const, caption: "Hahaha 😆" }
+    ]
+  },
+  {
+    id: "chapter-6",
+    title: "Tumbuh Bersama",
+    bgTheme: "navy" as const,
+    textHtml: `
+      <p>Melihatmu berkembang, mengatasi rasa takutmu, dan menjadi versi dirimu yang lebih berani sangatlah luar biasa.</p>
+      <p>Aku sangat bangga padamu, hari ini dan selamanya.</p>
+    `,
+    gridType: "2-col" as const,
+    reverseLayout: true,
+    photos: [
+      { src: "/photos/paskal-10/photo1.webp", rotation: "neutral" as const },
+      { src: "/photos/paskal-10/photo2.webp", rotation: "left" as const },
+      { src: "/photos/paskal-10/photo3.webp", rotation: "right" as const },
+      { src: "/photos/paskal-10/photo4.jpg", rotation: "neutral" as const }
+    ]
+  },
+  {
+    id: "chapter-7",
+    title: "Ketenangan",
+    bgTheme: "cream" as const,
+    textHtml: `
+      <p>Di antara semua hiruk piruk, terkadang diam menikmati waktu bersamamu adalah momen yang sangat ku hargai.</p>
+    `,
+    gridType: "3-col" as const,
+    reverseLayout: false,
+    photos: [
+      { src: "/photos/kopitera/photo2.webp", rotation: "left" as const },
+      { src: "/photos/kopitera/photo3.jpg", rotation: "neutral" as const },
+      { src: "/photos/kopitera/photo4.jpg", rotation: "left" as const, caption: "Tenang bareng kamu 🍵" },
+      { src: "/photos/kopitera/photo5.jpg", rotation: "right" as const }
+    ]
+  }
+];
+---
+
+<BaseLayout title="Happy Birthday, Zura! 🤍">
+  <MusicPlayer audioSrc="/audio/birthday-song.m4a" />
+  <SplashScreen />
+
+  <main id="main-scroll-container">
+    <HeroSection />
+    
+    {chapters.map(chapter => (
+      <ChapterSection 
+        id={chapter.id}
+        title={chapter.title}
+        bgTheme={chapter.bgTheme}
+        textHtml={chapter.textHtml}
+        photos={chapter.photos}
+        gridType={chapter.gridType}
+        reverseLayout={chapter.reverseLayout}
+      />
+    ))}
+    
+    <FinaleSection id="finale" />
+    <ClosingSection />
+  </main>
+</BaseLayout>
+
+<script is:inline>
+(function() {
+  'use strict';
+
+  // ============================================================
+  // AUTO-SCROLL ENGINE
+  // ============================================================
+  var isAutoScrolling = false;
+  var audioEl = null;
+  var animFrameId = null;
+  var userHasInteracted = false; // Permanent stop flag — reset only on page refresh
+
+  var SCROLL_MAP = [
+    { time: 0,   pos: 0.00 },
+    { time: 20,  pos: 0.08 },
+    { time: 55,  pos: 0.22 },
+    { time: 80,  pos: 0.35 },
+    { time: 120, pos: 0.48 },
+    { time: 155, pos: 0.61 },
+    { time: 190, pos: 0.74 },
+    { time: 225, pos: 0.88 },
+    { time: 255, pos: 1.00 },
+    { time: 275, pos: 1.00 },
+  ];
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function getTargetScrollPos(ct) {
+    var maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    for (var i = 0; i < SCROLL_MAP.length - 1; i++) {
+      var from = SCROLL_MAP[i], to = SCROLL_MAP[i + 1];
+      if (ct >= from.time && ct <= to.time) {
+        var p = (ct - from.time) / (to.time - from.time);
+        return lerp(from.pos, to.pos, p) * maxScroll;
+      }
+    }
+    return maxScroll;
+  }
+
+  function autoScrollLoop() {
+    if (!isAutoScrolling || !audioEl) return;
+    window.scrollTo(0, lerp(window.scrollY, getTargetScrollPos(audioEl.currentTime), 0.03));
+    animFrameId = requestAnimationFrame(autoScrollLoop);
+  }
+
+  function startAutoScroll(audio) {
+    if (userHasInteracted) return; // Never restart after user has interacted
+    audioEl = audio;
+    isAutoScrolling = true;
+    if (animFrameId) cancelAnimationFrame(animFrameId);
+    animFrameId = requestAnimationFrame(autoScrollLoop);
+  }
+
+  function stopAutoScroll() {
+    isAutoScrolling = false;
+    if (animFrameId) { cancelAnimationFrame(animFrameId); animFrameId = null; }
+  }
+
+  function handleUserInteraction() {
+    if (userHasInteracted) return;
+    userHasInteracted = true;
+    stopAutoScroll();
+    // Remove all interaction listeners — no need to listen anymore
+    window.removeEventListener('wheel', handleUserInteraction);
+    window.removeEventListener('touchmove', handleUserInteraction);
+    window.removeEventListener('keydown', handleUserInteraction);
+    window.removeEventListener('touchstart', handleUserInteraction);
+  }
+
+  window.addEventListener('wheel', handleUserInteraction, { passive: true });
+  window.addEventListener('touchmove', handleUserInteraction, { passive: true });
+  window.addEventListener('touchstart', handleUserInteraction, { passive: true });
+  window.addEventListener('keydown', handleUserInteraction);
+
+  // ============================================================
+  // GSAP SCROLL ANIMATIONS
+  // Initialize immediately when DOM is ready — do NOT wait for button
+  // ============================================================
+  function initScrollAnimations() {
+    if (typeof gsap === 'undefined') {
+      setTimeout(initScrollAnimations, 150);
+      return;
+    }
+
+    if (typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+    }
+
+    // Background color transitions
+    var sections = document.querySelectorAll('.js-section');
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting && e.intersectionRatio > 0.4) {
+          var bg = e.target.dataset.bg;
+          if (bg) {
+            document.body.style.setProperty(
+              '--current-bg',
+              bg === 'cream' ? 'var(--color-cream)' : 'var(--color-navy)'
+            );
+          }
+        }
+      });
+    }, { threshold: 0.4 });
+    sections.forEach(function(s) { observer.observe(s); });
+
+    // Fade-up animations via ScrollTrigger
+    if (typeof ScrollTrigger === 'undefined') return;
+
+    sections.forEach(function(section) {
+      var els = section.querySelectorAll('.js-fade-up');
+      if (!els.length) return;
+      gsap.fromTo(els,
+        { y: 40, opacity: 0, visibility: 'visible' },
+        {
+          y: 0, opacity: 1, duration: 0.9, stagger: 0.15, ease: 'power2.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 78%',
+            toggleActions: 'play none none none',
+            once: true
+          }
+        }
+      );
+    });
+
+    // Polaroid card entrance animations
+    document.querySelectorAll('.polaroid-grid').forEach(function(grid) {
+      var cards = grid.querySelectorAll('.polaroid-wrapper');
+      if (!cards.length) return;
+      gsap.fromTo(cards,
+        { y: 60, opacity: 0 },
+        {
+          y: 0, opacity: 1, duration: 1, stagger: 0.12, ease: 'back.out(1.4)',
+          scrollTrigger: {
+            trigger: grid,
+            start: 'top 82%',
+            toggleActions: 'play none none none',
+            once: true
+          }
+        }
+      );
+    });
+  }
+
+  // ============================================================
+  // SPLASH SCREEN HANDLER
+  // ============================================================
+  function setupSplash() {
+    var btn = document.getElementById('btnStart');
+    var splash = document.getElementById('splashScreen');
+    var audio = document.getElementById('bgMusic');
+
+    if (!btn || !splash) { setTimeout(setupSplash, 100); return; }
+
+    btn.addEventListener('click', function() {
+      // Always scroll to top on start to prevent bugs after refresh
+      window.scrollTo(0, 0);
+
+      // Play audio
+      if (audio) {
+        audio.play().catch(function(err) {
+          console.warn('Audio autoplay blocked:', err.message);
+        });
+      }
+
+      // Animate splash out
+      if (typeof gsap !== 'undefined') {
+        gsap.to(splash, {
+          yPercent: -100,
+          duration: 1.2,
+          ease: 'power3.inOut',
+          onComplete: function() {
+            splash.style.display = 'none';
+            // Start auto-scroll after splash is gone
+            if (audio) startAutoScroll(audio);
+          }
+        });
+      } else {
+        // CSS fallback
+        splash.style.transition = 'transform 1s ease, opacity 0.5s ease';
+        splash.style.transform = 'translateY(-100%)';
+        setTimeout(function() {
+          splash.style.display = 'none';
+          if (audio) startAutoScroll(audio);
+        }, 1000);
+      }
+    });
+  }
+
+  // ============================================================
+  // BOOT
+  // ============================================================
+  function boot() {
+    setupSplash();
+    initScrollAnimations(); // Start immediately — not waiting for button
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+</script>

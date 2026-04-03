@@ -1,0 +1,312 @@
+/* src/styles/polaroid.css */
+
+.polaroid, .polaroid-card {
+  background: var(--color-white);
+  padding: 10px 10px 40px 10px;
+  box-shadow:
+    4px 4px 0px rgba(30, 61, 92, 0.15),
+    8px 8px 20px rgba(30, 61, 92, 0.12);
+  transition: transform 0.3s var(--ease-smooth), box-shadow 0.3s ease;
+  position: relative;
+  display: inline-block;
+}
+
+@media (min-width: 768px) {
+  .polaroid, .polaroid-card {
+    padding: 14px 14px 56px 14px;
+  }
+}
+
+/* Rotations */
+.polaroid--rotate-left {
+  transform: rotate(-3deg);
+}
+
+.polaroid--rotate-right {
+  transform: rotate(3deg);
+}
+
+.polaroid--rotate-neutral {
+  transform: rotate(-1deg);
+}
+
+/* Hover effect */
+.polaroid:hover, .polaroid-card:hover {
+  transform: rotate(0deg) scale(1.03);
+  box-shadow: 6px 6px 30px rgba(30, 61, 92, 0.25);
+  z-index: 10;
+}
+
+/* Image */
+.polaroid img, .polaroid-card img, .polaroid video, .polaroid-card video {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+
+/* Landscape variant — image shows in 4:3 ratio, no cropping */
+.polaroid--landscape img,
+.polaroid--landscape video {
+  aspect-ratio: 4 / 3;
+  object-fit: contain; /* show full image, no crop */
+  background: #f0ede8; /* warm neutral fill for letterbox gaps */
+}
+
+/* Landscape wrapper spans full grid width on all sizes */
+.polaroid-wrapper--landscape {
+  grid-column: 1 / -1;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+@media (min-width: 992px) {
+  .polaroid-wrapper--landscape {
+    max-width: 70%;
+  }
+}
+
+/* Caption */
+.polaroid__caption {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(1.1rem, 2.5vw, 1.2rem);
+  color: #333;
+  text-align: center;
+  margin-top: 10px;
+  padding: 0 6px;
+  line-height: 1.4;
+  margin-bottom: 0;
+}
+
+/* Grid Layouts */
+.polaroid-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 992px) {
+  .polaroid-grid--3-col {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.polaroid-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.polaroid-grid--mixed .polaroid-wrapper:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  max-width: 70%;
+  margin: 0 auto;
+}
+
+@media (max-width: 767px) {
+  .polaroid-grid {
+    gap: 12px;
+    /* Ensure grid doesn't overflow section padding */
+    max-width: 100%;
+  }
+
+  /* Let grid columns define width — no fixed vw override */
+  .polaroid-grid--2-col .polaroid-wrapper,
+  .polaroid-grid--3-col .polaroid-wrapper,
+  .polaroid-grid--mixed .polaroid-wrapper {
+    width: 100%;
+  }
+
+  /* 3-col stays 2-col on mobile */
+  .polaroid-grid--3-col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .polaroid-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Mixed: last odd card stays full width but smaller */
+  .polaroid-grid--mixed .polaroid-wrapper:last-child:nth-child(odd) {
+    max-width: 55%;
+  }
+}
+
+/* ============================================================
+   STACKED — overlapping cluster layout (Senyum Manismu)
+   3 photos arranged in a compact overlapping pile
+   ============================================================ */
+.polaroid-grid--stacked {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  position: relative;
+  margin-top: 32px;
+  padding-bottom: 16px;
+}
+
+/* Top row: first two photos side by side, slightly overlapping */
+.polaroid-grid--stacked .polaroid-wrapper:nth-child(1),
+.polaroid-grid--stacked .polaroid-wrapper:nth-child(2) {
+  width: 58%;
+  max-width: 260px;
+  position: relative;
+  z-index: 2;
+  margin-bottom: -24px;
+}
+
+.polaroid-grid--stacked .polaroid-wrapper:nth-child(1) {
+  align-self: flex-start;
+  margin-left: 2%;
+  margin-right: -12px;
+  z-index: 3;
+}
+
+.polaroid-grid--stacked .polaroid-wrapper:nth-child(2) {
+  align-self: flex-end;
+  margin-right: 2%;
+  margin-left: -12px;
+  z-index: 2;
+}
+
+/* Inline top row on mobile */
+.polaroid-grid--stacked .polaroid-wrapper:nth-child(1),
+.polaroid-grid--stacked .polaroid-wrapper:nth-child(2) {
+  display: inline-flex;
+}
+
+/* Actually use a two-top + one-bottom approach with a wrapper */
+.polaroid-grid--stacked {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 8px 4px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.polaroid-grid--stacked .polaroid-wrapper:nth-child(1) {
+  grid-column: 1;
+  grid-row: 1;
+  margin-top: 0;
+  justify-self: end;
+  width: 95%;
+}
+
+.polaroid-grid--stacked .polaroid-wrapper:nth-child(2) {
+  grid-column: 2;
+  grid-row: 1;
+  margin-top: 20px;
+  justify-self: start;
+  width: 95%;
+}
+
+.polaroid-grid--stacked .polaroid-wrapper:nth-child(3) {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  justify-self: center;
+  width: 62%;
+  max-width: 280px;
+  margin-top: -16px;
+  z-index: 4;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .polaroid-grid--stacked {
+    max-width: 540px;
+    gap: 12px 8px;
+  }
+
+  .polaroid-grid--stacked .polaroid-wrapper:nth-child(3) {
+    width: 56%;
+    margin-top: -20px;
+  }
+}
+
+/* ============================================================
+   CAHAYA — large prominent photos layout (4 photos)
+   Top row: 2 photos side by side
+   Middle: 1 large centered photo
+   Bottom: 1 photo centered
+   ============================================================ */
+.polaroid-grid--cahaya {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 10px 6px;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 32px;
+}
+
+.polaroid-grid--cahaya .polaroid-wrapper:nth-child(1) {
+  grid-column: 1;
+  grid-row: 1;
+  width: 100%;
+}
+
+.polaroid-grid--cahaya .polaroid-wrapper:nth-child(2) {
+  grid-column: 2;
+  grid-row: 1;
+  margin-top: 20px;
+  width: 100%;
+}
+
+/* Third photo: full width centered, prominent */
+.polaroid-grid--cahaya .polaroid-wrapper:nth-child(3) {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  justify-self: center;
+  width: 70%;
+  max-width: 340px;
+  margin-top: -8px;
+  z-index: 4;
+  position: relative;
+}
+
+/* Fourth photo: offset to one side on row 3 */
+.polaroid-grid--cahaya .polaroid-wrapper:nth-child(4) {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  justify-self: center;
+  width: 55%;
+  max-width: 260px;
+  margin-top: -14px;
+  z-index: 3;
+  position: relative;
+}
+
+/* cahaya images — portrait ratio */
+.polaroid-grid--cahaya .polaroid-card img {
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: top center;
+}
+
+@media (min-width: 768px) {
+  .polaroid-grid--cahaya {
+    max-width: 580px;
+    gap: 14px 8px;
+  }
+
+  .polaroid-grid--cahaya .polaroid-wrapper:nth-child(3) {
+    width: 63%;
+    max-width: 380px;
+    margin-top: -12px;
+  }
+
+  .polaroid-grid--cahaya .polaroid-wrapper:nth-child(4) {
+    width: 48%;
+    max-width: 290px;
+    margin-top: -18px;
+  }
+}

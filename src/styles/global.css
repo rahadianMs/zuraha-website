@@ -1,0 +1,75 @@
+/* src/styles/global.css */
+
+/* CSS Variables — Design Tokens */
+:root {
+  /* Backgrounds */
+  --color-navy: #1E3D5C;
+  --color-cream: #F5F0E8;
+
+  /* Accents */
+  --color-coral: #E8603A;
+  --color-yellow: #F5C842;
+
+  /* Text */
+  --color-white: #FFFFFF;
+  --color-navy-text: #1E3D5C;
+
+  /* Utilities */
+  --color-coral-light: #F0856A;
+  --color-navy-dark: #142D47;
+  --color-overlay: rgba(30, 61, 92, 0.85);
+
+  /* Typography Scales (Mobile First) */
+  --fs-display: clamp(2.5rem, 8vw, 5rem);
+  --fs-heading: clamp(1.8rem, 5vw, 3rem);
+  --fs-subhead: clamp(1.3rem, 3.5vw, 1.8rem);
+  --fs-body: clamp(1.05rem, 2.5vw, 1.15rem);
+  --fs-caption: clamp(1rem, 2.2vw, 1.1rem);
+  --fs-label: clamp(0.8rem, 1.8vw, 0.9rem);
+
+  /* Spacing */
+  --section-padding-y: clamp(60px, 8vw, 120px);
+  --section-padding-x: clamp(20px, 5vw, 60px);
+  --chapter-gap: clamp(80px, 10vw, 160px);
+
+  /* Animation */
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --current-bg: var(--color-navy);
+}
+
+/* Reset + Base */
+*, *::before, *::after { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
+
+html { 
+  scroll-behavior: smooth; 
+}
+
+body {
+  background-color: var(--current-bg, var(--color-navy));
+  transition: background-color 0.8s ease;
+  overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
+  color: var(--color-white);
+  -webkit-font-smoothing: antialiased;
+}
+
+body[data-current-bg="cream"] {
+  color: var(--color-navy-text);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+}

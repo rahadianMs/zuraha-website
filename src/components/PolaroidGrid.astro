@@ -1,0 +1,13 @@
+---
+// src/components/PolaroidGrid.astro
+interface Props {
+  columns: "2-col" | "3-col" | "mixed" | "stacked" | "cahaya";
+  className?: string;
+}
+
+const { columns, className = "" } = Astro.props;
+const gridClass = `polaroid-grid--${columns}`;
+---
+<div class={`polaroid-grid ${gridClass} ${className}`}>
+  <slot />
+</div>

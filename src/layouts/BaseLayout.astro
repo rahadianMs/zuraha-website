@@ -1,0 +1,38 @@
+---
+// src/layouts/BaseLayout.astro
+import '../styles/global.css';
+import '../styles/typography.css';
+import '../styles/polaroid.css';
+import '../styles/sections.css';
+import '../styles/animations.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "A visual diary for Zura." } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    
+    <!-- Google Fonts — only fonts actively used in the codebase -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Inter:wght@300;400;500&family=Patrick+Hand&display=swap" rel="stylesheet">
+
+    <!-- GSAP for animations — defer so they don't block initial render -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js" defer></script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

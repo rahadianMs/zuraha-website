@@ -1,0 +1,74 @@
+/* src/styles/animations.css */
+
+/* GSAP classes for fade-ups */
+.opacity-0 {
+  opacity: 0;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+/* Floating Animation elements */
+.floating-element {
+  animation: float 6s ease-in-out infinite;
+}
+
+.floating-element--delayed {
+  animation: float 6s ease-in-out 3s infinite;
+}
+
+.floating-element--fast {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Pulse animation */
+.pulse-slow {
+  animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .7; }
+}
+
+/* Gradient text shimmer */
+.text-gradient-shimmer {
+  background: linear-gradient(
+    to right,
+    var(--color-yellow) 20%,
+    var(--color-white) 40%,
+    var(--color-white) 60%,
+    var(--color-yellow) 80%
+  );
+  background-size: 200% auto;
+  color: #000;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 3s linear infinite;
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* Subtitle typing effect cursor */
+.typing-cursor::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}

@@ -1,0 +1,133 @@
+/* src/styles/sections.css */
+
+/* Generic Section Setup */
+.section {
+  min-height: 100vh;
+  padding: var(--section-padding-y) var(--section-padding-x);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden; /* For animations */
+}
+
+.section-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Splash Screen */
+.splash-bg {
+  background-color: var(--color-navy);
+  color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.splash-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.btn-start {
+  background-color: transparent;
+  color: var(--color-yellow);
+  border: 2px solid var(--color-yellow);
+  padding: 16px 32px;
+  border-radius: 30px;
+  font-family: 'Patrick Hand', 'Comic Sans MS', cursive;
+  font-weight: 400;
+  font-size: 1.2rem;
+  letter-spacing: 0.04em;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  min-height: 48px;
+}
+
+.btn-start:hover {
+  background-color: var(--color-yellow);
+  color: var(--color-navy);
+}
+
+/* Chapter Layouts */
+.chapter-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+@media (min-width: 992px) {
+  .chapter-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+
+  /* Use order instead of direction:rtl to avoid screen reader issues */
+  .chapter-container--reverse .chapter-text {
+    order: 2;
+  }
+
+  .chapter-container--reverse .chapter-media {
+    order: 1;
+  }
+}
+
+/* Tablet (768px–991px) — single column, tighter padding */
+@media (min-width: 768px) and (max-width: 991px) {
+  .chapter-container {
+    gap: 32px;
+  }
+}
+
+.chapter-text {
+  max-width: 500px;
+}
+
+/* Mobile: let text breathe — remove width constraint */
+@media (max-width: 767px) {
+  .chapter-text {
+    max-width: 100%;
+  }
+
+  /* Bump chapter headings on mobile so they feel prominent */
+  .chapter-text .title-heading {
+    font-size: clamp(1.6rem, 6vw, 2.2rem);
+  }
+}
+
+
+.chapter-media {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Finale specific styles */
+.finale-section {
+  text-align: center;
+  justify-content: center;
+}
+
+.finale-content {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}

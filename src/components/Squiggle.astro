@@ -1,0 +1,32 @@
+---
+// src/components/Squiggle.astro
+interface Props {
+  color?: string;
+  width?: number;
+  height?: number;
+  className?: string;
+}
+
+const { 
+  color = "currentColor", 
+  width = 100,
+  height = 12,
+  className = ""
+} = Astro.props;
+---
+<svg 
+  width={width} 
+  height={height} 
+  viewBox="0 0 100 12" 
+  fill="none" 
+  xmlns="http://www.w3.org/2000/svg"
+  class={className}
+>
+  <path 
+    d="M0 6C12.5 -2 12.5 14 25 6C37.5 -2 37.5 14 50 6C62.5 -2 62.5 14 75 6C87.5 -2 87.5 14 100 6" 
+    stroke={color} 
+    stroke-width="2" 
+    stroke-linecap="round" 
+    stroke-linejoin="round"
+  />
+</svg>

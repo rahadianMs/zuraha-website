@@ -134,11 +134,11 @@ const chapters = [
     textHtml: `
       <p>Di antara semua hiruk piruk, terkadang diam menikmati waktu bersamamu adalah momen yang sangat ku hargai.</p>
     `,
-    gridType: "3-col" as const,
+    gridType: "mixed" as const,
     reverseLayout: false,
     photos: [
       { src: "/photos/kopitera/photo2.webp", rotation: "left" as const },
-      { src: "/photos/kopitera/photo3.jpg", rotation: "neutral" as const },
+      { src: "/photos/kopitera/photo3.webp", rotation: "neutral" as const },
       { src: "/photos/kopitera/photo4.jpg", rotation: "left" as const, caption: "Tenang bareng kamu 🍵" },
       { src: "/photos/kopitera/photo5.jpg", rotation: "right" as const }
     ]
@@ -182,7 +182,7 @@ const chapters = [
   var animFrameId = null;
 
   var isMobile = window.innerWidth <= 768;
-  var durationInSeconds = isMobile ? 123 : 145; // Slowed down mobile even more (123s) by another 20% from 102s
+  var durationInSeconds = isMobile ? 148 : 145; // Slowed down mobile by another 20% (123s * 1.2 = 147.6s)
   var startTimestamp = null;
 
   var maxScroll = 0;
@@ -195,20 +195,18 @@ const chapters = [
     
     if (!startTimestamp) {
        startTimestamp = timestamp;
-       updateMaxScroll(); // Initial calculation
+       updateMaxScroll();
     }
     
     var elapsedTime = (timestamp - startTimestamp) / 1000;
     var progress = Math.min(elapsedTime / durationInSeconds, 1.0);
     
-    // Periodically update maxScroll every ~2 seconds to handle lazy-loaded images without thrashing every frame
-    if (Math.floor(elapsedTime) % 2 === 0 && elapsedTime > 0.1) {
+    if (Math.floor(elapsedTime * 2) % 2 === 0 && elapsedTime > 0.1) {
       updateMaxScroll();
     }
 
     var targetY = progress * maxScroll;
     
-    // Use scrollTo(x, y) to ensure no conflict with CSS smooth scroll
     window.scrollTo(0, targetY);
 
     if (progress < 1.0) {
@@ -221,8 +219,11 @@ const chapters = [
     }
   }
 
-  // Also update on resize
   window.addEventListener('resize', updateMaxScroll);
+  document.querySelectorAll('img').forEach(function(img) {
+    if (img.complete) updateMaxScroll();
+    else img.addEventListener('load', updateMaxScroll);
+  });
 
   function preventScroll(e) {
     if (isAutoScrolling) e.preventDefault();

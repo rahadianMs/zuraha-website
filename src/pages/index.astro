@@ -181,37 +181,36 @@ const chapters = [
   var audioEl = null;
   var animFrameId = null;
 
-  var SCROLL_MAP = [
-    { time: 0,   pos: 0.00 },
-    { time: 20,  pos: 0.08 },
-    { time: 55,  pos: 0.22 },
-    { time: 80,  pos: 0.35 },
-    { time: 120, pos: 0.48 },
-    { time: 155, pos: 0.61 },
-    { time: 190, pos: 0.74 },
-    { time: 225, pos: 0.88 },
-    { time: 255, pos: 1.00 },
-    { time: 275, pos: 1.00 },
-  ];
+  var durationInSeconds = 230; // Finishes before the song ends
+  var startTimestamp = null;
 
-  function lerp(a, b, t) { return a + (b - a) * t; }
-
-  function getTargetScrollPos(ct) {
-    var maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-    for (var i = 0; i < SCROLL_MAP.length - 1; i++) {
-      var from = SCROLL_MAP[i], to = SCROLL_MAP[i + 1];
-      if (ct >= from.time && ct <= to.time) {
-        var p = (ct - from.time) / (to.time - from.time);
-        return lerp(from.pos, to.pos, p) * maxScroll;
-      }
-    }
-    return maxScroll;
-  }
-
-  function autoScrollLoop() {
+  function autoScrollLoop(timestamp) {
     if (!isAutoScrolling || !audioEl) return;
-    window.scrollTo(0, lerp(window.scrollY, getTargetScrollPos(audioEl.currentTime), 0.03));
-    animFrameId = requestAnimationFrame(autoScrollLoop);
+    
+    // Initialize the starting timestamp on the first frame
+    if (!startTimestamp) startTimestamp = timestamp;
+    
+    // Calculate elapsed time in seconds
+    var elapsedTime = (timestamp - startTimestamp) / 1000;
+    
+    // Calculate progress (0.0 to 1.0)
+    var progress = Math.min(elapsedTime / durationInSeconds, 1.0);
+    
+    var maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    var targetY = progress * maxScroll;
+    
+    // Apply exact scroll position - perfectly stable, no jitter from audio's currentTime discretisation
+    window.scrollTo(0, targetY);
+
+    if (progress < 1.0) {
+      animFrameId = requestAnimationFrame(autoScrollLoop);
+    } else {
+      // Reached bottom, automatically unlock scrolling
+      stopAutoScroll();
+      window.removeEventListener('wheel', preventScroll);
+      window.removeEventListener('touchmove', preventScroll);
+      window.removeEventListener('keydown', preventKeyScroll);
+    }
   }
 
   function preventScroll(e) {
